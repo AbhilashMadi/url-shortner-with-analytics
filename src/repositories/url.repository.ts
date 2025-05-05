@@ -19,7 +19,7 @@ export interface IUrlRepository {
 class UrlRepository implements IUrlRepository {
 
   async createUrl(
-    originalUrl: string,
+    original_url: string,
     alias: string,
     expires_at?: Date,
     qr_code_path?: string,
@@ -27,7 +27,7 @@ class UrlRepository implements IUrlRepository {
     tags?: string[]
   ): Promise<IUrl> {
     const newUrl = new UrlModel({
-      originalUrl,
+      original_url,
       alias,
       created_at: new Date(),
       expires_at: expires_at || null,
@@ -58,6 +58,12 @@ class UrlRepository implements IUrlRepository {
   async deleteUrl(alias: string): Promise<boolean> {
     const result = await UrlModel.deleteOne({ alias }).exec();
     return result.deletedCount > 0;
+  }
+
+  // Find URL document by original_url
+  async findUrlByOriginalUrl(original_url: string): Promise<IUrl | null> {
+    const result = await UrlModel.findOne({ original_url });
+    return result;
   }
 }
 

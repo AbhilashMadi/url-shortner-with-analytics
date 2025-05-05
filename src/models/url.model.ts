@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUrl extends Document {
-  originalUrl: string;
+  original_url: string;
   alias: string;
   created_at: Date;
   expires_at?: Date | null;
@@ -15,7 +15,7 @@ export interface IUrl extends Document {
 }
 
 const urlSchema: Schema<IUrl> = new Schema<IUrl>({
-  originalUrl: {
+  original_url: {
     type: String,
     required: true,
   },
