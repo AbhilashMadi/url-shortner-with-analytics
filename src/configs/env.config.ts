@@ -9,6 +9,9 @@ const envSchema = z.object({
   // Database variables
   DB_URL: z.string(),
   DB_NAME: z.string(),
+
+  // SECRETS
+  IP_HASH_SECRET: z.string(),
 })
 
 // Parse and validate environment variables

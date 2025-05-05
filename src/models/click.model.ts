@@ -5,7 +5,11 @@ export interface IClick extends Document {
   alias: string;                    // Alias of the shortened URL
   url_id: Types.ObjectId;           // Reference to the URL document
   timestamp: Date;
-  ip_hash: string;                  // Hashed IP for privacy
+  ip: {
+    ip_hash: string;                // Hashed IP for privacy
+    iv: string;                     // Initialization vector for encryption
+    salt: string;                   // Salt for key derivation
+  };
   country?: string;
   city?: string;
   region?: string;
@@ -20,7 +24,11 @@ const ClickSchema = new Schema<IClick>({
   alias: { type: String, required: true, index: true },
   url_id: { type: Schema.Types.ObjectId, ref: 'Url', required: true },
   timestamp: { type: Date, default: Date.now },
-  ip_hash: { type: String, required: true },
+  ip: {
+    ip_hash: { type: String, required: true },
+    iv: { type: String, required: true },
+    salt: { type: String, required: true }
+  },
   country: { type: String },
   city: { type: String },
   region: { type: String },
@@ -33,6 +41,15 @@ const ClickSchema = new Schema<IClick>({
     enum: Object.values(DeviceType),
     default: DeviceType.UNKNOWN,
   },
+}, {
+  toJSON: {
+    transform: (_, ret) => {
+      ret.user_id = ret._id.toString();
+      ret.ip = undefined;
+
+      return ret;
+    },
+  }
 });
 
 export default mongoose.model<IClick>('Click', ClickSchema);

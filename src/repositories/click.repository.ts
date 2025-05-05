@@ -66,9 +66,9 @@ class ClickRepository implements IClickRepository {
 
     return {
       total: data.total[0]?.count || 0,
-      unique_ips: data.uniqueIps[0]?.count || 0,
-      by_country: Object.fromEntries(data.byCountry.map((c: { _id: any; count: any; }) => [c._id, c.count])),
-      by_device: Object.fromEntries(data.byDevice.map((d: { _id: any; count: any; }) => [d._id, d.count])),
+      unique_ips: data.unique_ips[0]?.count || 0,
+      by_country: Object.fromEntries(data.by_country.map((c: { _id: any; count: any; }) => [c._id, c.count])),
+      by_device: Object.fromEntries(data.by_device.map((d: { _id: any; count: any; }) => [d._id, d.count])),
     };
   }
 }
