@@ -40,7 +40,9 @@ export const updateUrlDTOSchema = createUrlDTOSchema
 // --- Get URL Details Schema ---
 export const urlAliasParamsSchema = z.object({
   alias: z
-    .string({ required_error: ErrorMessages.required("Short URL alias") }),
+    .string({ required_error: ErrorMessages.required("Short URL alias") })
+    .min(6, { message: ErrorMessages.minLength("Alias", 6) })
+    .max(6, { message: ErrorMessages.maxLength("Alias", 6) })
 });
 
 // --- Type Inference ---
@@ -55,15 +57,15 @@ const UrlRouteSchemas = {
     tags: ["url"],
     body: zodToJsonSchema(createUrlDTOSchema),
   },
-  updateSchema: {
-    summary: "Update a short URL",
-    tags: ["url"],
-    body: zodToJsonSchema(updateUrlDTOSchema),
-  },
   getSchema: {
     summary: "Get URL by alias",
     tags: ["url"],
     params: zodToJsonSchema(urlAliasParamsSchema),
+  },
+  updateSchema: {
+    summary: "Update a short URL",
+    tags: ["url"],
+    body: zodToJsonSchema(updateUrlDTOSchema),
   },
   deleteSchema: {
     summary: "Delete a short URL",

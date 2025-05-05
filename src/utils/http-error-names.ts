@@ -11,6 +11,7 @@ enum HttpExceptionNames {
 	INVALID_MOVE = "InvalidMoveException",
 	ROOM_EXISTS = "RoomAlreadyExistsException",
 	ROOM_NOT_FOUND = "RoomNotFoundException",
+	GONE = "Gone",
 }
 
 export default HttpExceptionNames;
