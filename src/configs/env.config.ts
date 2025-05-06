@@ -1,14 +1,11 @@
-// Ensure dotenv loads before anything else
+import "dotenv/config"
 import { z } from 'zod';
-import { config } from 'dotenv';
-
-config({ path: ".env.prod" })
 
 // Define the schema for environment variables
 const envSchema = z.object({
   // Server variables
   NODE_ENV: z.enum(["development", "production", "test"]),
-  PORT: z.coerce.number().min(1),
+  PORT: z.coerce.number().optional().default(8080),
 
   // Database variables
   DB_URL: z.string().url(),

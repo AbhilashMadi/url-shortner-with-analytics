@@ -14,12 +14,7 @@ const loggerConfig: Record<EnvConfig["NODE_ENV"], PinoLoggerOptions | boolean> =
       },
     },
   },
-  production: {
-    level: "info",
-    transport: {
-      target: "pino",
-    },
-  },
+  production: { level: "info" },
   test: false,
 };
 
