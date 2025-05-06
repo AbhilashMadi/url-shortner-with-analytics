@@ -6,9 +6,10 @@
   "main": "dist/app.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "build:server": "npm run clean && tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
-    "start:dev": "npm run clean && tsx watch src/app.ts",
-    "start:prod": "npm run clean && npm run build:server && node dist/src/app.js"
+    "build": "tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
+    "build:server": "npm run clean && npm run build",
+    "start:dev": "tsx watch src/app.ts",
+    "start:prod": "npm run build:server && node dist/src/app.js"
   },
   "keywords": [],
   "author": "",
