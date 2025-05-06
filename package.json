@@ -6,7 +6,7 @@
   "main": "dist/app.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "prebuild": "npm install",
+    "prebuild": "npm install --include=dev && npm run build",
     "build": "npm run clean && tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
     "dev": "npm run clean && tsx watch src/app.ts",
     "start": "npm run build && node dist/src/app.js"
