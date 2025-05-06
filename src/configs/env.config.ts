@@ -1,17 +1,22 @@
-import { z } from "zod";
+// Ensure dotenv loads before anything else
+import { z } from 'zod';
+import { config } from 'dotenv';
 
+config({ path: ".env.prod" })
+
+// Define the schema for environment variables
 const envSchema = z.object({
   // Server variables
   NODE_ENV: z.enum(["development", "production", "test"]),
   PORT: z.coerce.number().min(1),
 
   // Database variables
-  DB_URL: z.string(),
-  DB_NAME: z.string(),
+  DB_URL: z.string().url(),
+  DB_NAME: z.string().min(1),
 
-  // SECRETS
-  IP_HASH_SECRET: z.string(),
-})
+  // Secrets
+  IP_HASH_SECRET: z.string().min(1),
+});
 
 // Parse and validate environment variables
 const parsed = envSchema.safeParse(process.env);
@@ -22,9 +27,8 @@ if (!parsed.success) {
   process.exit(1);
 }
 
-// Extract validated environment variables
+// Extract validated env vars
 const envConfig = parsed.data;
 
-// Export the environment configuration
 export type EnvConfig = z.infer<typeof envSchema>;
 export default envConfig;
