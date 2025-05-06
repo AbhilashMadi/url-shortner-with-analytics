@@ -4,7 +4,6 @@ const envSchema = z.object({
   // Server variables
   NODE_ENV: z.enum(["development", "production", "test"]),
   PORT: z.coerce.number().min(1),
-  HOST: z.string(),
 
   // Database variables
   DB_URL: z.string(),

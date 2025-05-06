@@ -26,7 +26,7 @@ await app.register(Autoload, {
 });
 
 try {
-  await app.listen({ port: envConfig.PORT, host: envConfig.HOST });
+  await app.listen({ port: envConfig.PORT });
   console.info(`Server started on port ${envConfig.PORT}`);
 } catch (err) {
   app.log.error(err);
